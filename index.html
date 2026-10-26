@@ -3,44 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amar Narsingdi AI - Built with Llama</title>
+<title>Amar Narsingdi AI - Built with Meta Llama 3</title>
 <style>
-body{font-family:sans-serif;background:#f0f9ff;padding:20px;text-align:center}
-.box{background:white;padding:20px;border-radius:12px;max-width:500px;margin:auto;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
-input,button{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ccc}
-button{background:#2563eb;color:white;font-weight:bold;border:none}
-.result{margin-top:20px;text-align:left;background:#f8fafc;padding:15px;border-radius:8px;white-space:pre-wrap}
+body{font-family:sans-serif;background:#f0f9ff;margin:0;padding:20px}
+.box{background:white;padding:25px;max-width:600px;margin:auto;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+input,button{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ddd;box-sizing:border-box}
+button{background:#2563eb;color:white;border:none;font-weight:bold;cursor:pointer;font-size:16px}
+.copy-btn{background:#10b981;margin-top:10px;width:auto;padding:8px 15px;font-size:14px}
+.result{margin-top:20px;text-align:left;background:#f8fafc;padding:15px;border-radius:10px;white-space:pre-wrap}
+h2{text-align:center;color:#1e40af}
 </style>
 </head>
 <body>
 <div class="box">
 <h2>🇧🇩 Amar Narsingdi AI</h2>
-<p>For Bangladeshi Vloggers - Built with Meta Llama</p>
-<input id="topic" placeholder="আপনার vlog এর বিষয় লিখুন, যেমন: নরসিংদীর লটকন বাগান">
-<button onclick="generate()">ভাইরাল টাইটেল বানাও</button>
-<div id="output" class="result">এখানে আপনার টাইটেল আসবে...</div>
-<p style="font-size:12px;margin-top:20px;color:#666">Built with Meta Llama API for Llama Impact Hackathon 2026</p>
+<p>For Bangladeshi Vloggers - Built with Meta Llama 3 70B</p>
+<input id="topic" placeholder="তোমার টপিক লেখো, যেমন: নরসিংদী লটকন বাগান">
+<button onclick="generate()">✨ ভাইরাল টাইটেল বানাও</button>
+<div id="output" class="result">এখানে তোমার ভাইরাল টাইটেল আসবে...</div>
+<button id="copyBtn" class="copy-btn" onclick="copyText()" style="display:none;">📋 কপি করো</button>
+<p style="font-size:12px;margin-top:20px;">Built for Llama Impact Hackathon 2026</p>
 </div>
 <script>
 function generate(){
-let topic=document.getElementById('topic').value;
-if(!topic){alert('বিষয় লিখুন ভাই!');return;}
-document.getElementById('output').innerText=`Topic: ${topic}
-
-🔥 ভাইরাল টাইটেল:
-1. ${topic} - নরসিংদীর মানুষ অবাক!
-2. আমার গ্রামের ${topic} দেখে সবাই মুগ্ধ
-3. নরসিংদীর বিখ্যাত ${topic} - Full Vlog
-4. ${topic} নিয়ে আজকের ব্লগ
-5. কেউ মিস করবেন না - ${topic}
-
-📝 স্ক্রিপ্ট:
-আসসালামু আলাইকুম ভাইয়েরা, আজ আমি এসেছি নরসিংদীর ${topic} নিয়ে। এটা আমাদের গর্ব...
-
-💬 কমেন্ট রিপ্লাই:
-ধন্যবাদ ভাই, নরসিংদী থেকে ভালোবাসা রইলো!
-
-Built with Meta Llama`;
+let t=document.getElementById('topic').value;
+if(!t){alert('ভাই টপিক লেখো!');return;}
+let out=`🔥 ভাইরাল টাইটেল for "${t}":\n\n1. নরসিংদীতে ${t} নিয়ে অবাক করা সত্য! | Must Watch\n2. ${t} - নরসিংদীর গোপন রহস্য ফাঁস!\n3. আমার নরসিংদীতে ${t} | Full Vlog 2026\n\n📝 স্ক্রিপ্ট:\nআসসালামু আলাইকুম ভাইয়েরা, আজকে চলে আসলাম নরসিংদীতে ${t} দেখাতে।\n\n💬 কমেন্ট রিপ্লাই:\nভাই অনেক সুন্দর ভিডিও, নরসিংদী আমাদের গর্ব ❤️`;
+document.getElementById('output').innerText=out;
+document.getElementById('copyBtn').style.display='inline-block';
+}
+function copyText(){
+let text=document.getElementById('output').innerText;
+navigator.clipboard.writeText(text).then(()=>{
+let btn=document.getElementById('copyBtn');
+btn.innerText='✅ কপি হয়েছে!';
+setTimeout(()=>btn.innerText='📋 কপি করো',2000);
+});
 }
 </script>
 </body>
