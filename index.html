@@ -96,11 +96,26 @@ function genVlog(){
   // Typing effect for winning look
   let i=0; const timer=setInterval(()=>{ out.innerText = text.slice(0,i++); if(i>text.length) clearInterval(timer); }, 8);
 }
+const GROQ_KEY = "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";
+async function askGroq(q){
+  const out=document.getElementById('out');
+  out.classList.remove('hidden');
+  out.innerHTML='⏳ AI ভাবছে...';
+  try{
+    const r=await fetch("https://api.groq.com/openai/v1/chat/completions",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Authorization":"Bearer "+GROQ_KEY},
+      body:JSON.stringify({model:"llama-3.1-8b-instant",messages:[{role:"user",content:q}]})
+    });
+    const d=await r.json();
+    out.innerHTML=d.choices[0].message.content;
+  }catch(e){out.innerHTML="Error: "+e.message;}
+}
 
 function findLocation(){
-  const raw = document.getElementById('locInput').value.trim();
+  const raw=document.getElementById('locInput').value.trim();
   if(!raw) return alert("জায়গার নাম লেখো!");
-  let foundKey = null;
+let foundKey = null;
   for(let k in locDB){ if(raw.toLowerCase().includes(k.toLowerCase()) || k.toLowerCase().includes(raw.toLowerCase())){ foundKey=k; break; } }
   const out = document.getElementById('locOut');
   out.classList.remove('hidden');
@@ -117,7 +132,7 @@ function findLocation(){
         <button onclick="copyText('locOut')" class="ml-2 bg-gray-800 text-white text-xs px-4 py-2 rounded-full">কপি</button>
       </div>`;
   } else {
-    out.innerHTML = `<div class="bg-red-50 border border-red-200 rounded-xl p-4 text-sm">😔 "${raw}" আমার লিস্টে পাইনি।<br>ট্রাই করো: ড্রিম হলিডে পার্ক, শেষ বিকেল, ওয়ারী-বটেশ্বর, মেঘনা নদী</div>`;
+askGroq(raw);
   }
 }
 
