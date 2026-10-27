@@ -3,42 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amar Narsingdi AI - Built with Meta Llama 3</title>
+<title>Amar Narsingdi AI - SOB All in One</title>
 <style>
-body{font-family:sans-serif;background:#f0f9ff;margin:0;padding:20px}
-.box{background:white;padding:25px;max-width:600px;margin:auto;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
-input,button{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ddd;box-sizing:border-box}
-button{background:#2563eb;color:white;border:none;font-weight:bold;cursor:pointer;font-size:16px}
-.copy-btn{background:#10b981;margin-top:10px;width:auto;padding:8px 15px;font-size:14px}
-.result{margin-top:20px;text-align:left;background:#f8fafc;padding:15px;border-radius:10px;white-space:pre-wrap}
-h2{text-align:center;color:#1e40af}
+body{font-family:sans-serif;background:#f0f7ff;padding:10px;margin:0}
+.box{background:white;padding:15px;border-radius:15px;max-width:650px;margin:auto;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+.tab{display:flex;gap:5px;margin-bottom:15px}
+.tab button{flex:1;background:#e5e7eb;color:#111;padding:10px}
+.tab button.active{background:#2563eb;color:white}
+input,select,button{width:100%;padding:12px;margin-top:8px;border-radius:8px;border:1px solid #ccc;font-size:15px;box-sizing:border-box}
+button{background:#2563eb;color:white;border:none;font-weight:bold;cursor:pointer}
+.result{margin-top:15px;background:#f9fafb;padding:12px;border-radius:8px;white-space:pre-wrap;text-align:left;min-height:50px}
+canvas{max-width:100%;border-radius:8px;margin-top:10px;border:1px solid #ddd}
+.range-label{display:flex;justify-content:space-between;margin-top:8px;font-size:14px}
+#imageTools{display:none}
 </style>
 </head>
 <body>
 <div class="box">
-<h2>🇧🇩 Amar Narsingdi AI</h2>
-<p>For Bangladeshi Vloggers - Built with Meta Llama 3 70B</p>
-<input id="topic" placeholder="তোমার টপিক লেখো, যেমন: নরসিংদী লটকন বাগান">
-<button onclick="generate()">✨ ভাইরাল টাইটেল বানাও</button>
-<div id="output" class="result">এখানে তোমার ভাইরাল টাইটেল আসবে...</div>
-<button id="copyBtn" class="copy-btn" onclick="copyText()" style="display:none;">📋 কপি করো</button>
-<p style="font-size:12px;margin-top:20px;">Built for Llama Impact Hackathon 2026</p>
+<h2 style="text-align:center;color:#1e40af">🇧🇩 Amar Narsingdi AI - SOB</h2>
+
+<div class="tab">
+<button id="t1" class="active" onclick="showTab('vlog')">🎬 টাইটেল</button>
+<button id="t2" onclick="showTab('loc')">📍 লোকেশন</button>
+<button id="t3" onclick="showTab('img')">🖼️ ছবি এডিট</button>
 </div>
+
+<!-- VLOG TAB -->
+<div id="tab-vlog">
+<input id="vlogInput" placeholder="যেমন: Dream Holiday Park">
+<button onclick="genVlog()">Llama 3 দিয়ে টাইটেল বানাও</button>
+<div id="vlogOut" class="result">এখানে ৫ টা ভাইরাল টাইটেল আসবে...</div>
+</div>
+
+<!-- LOCATION TAB -->
+<div id="tab-loc" style="display:none">
+<input id="locInput" placeholder="যেমন: নরসিংদী রেল স্টেশন">
+<button onclick="genLoc()">লোকেশন খুঁজো</button>
+<div id="locOut" class="result">লোকেশন + Google Map লিংক আসবে...</div>
+</div>
+
+<!-- IMAGE EDITOR TAB -->
+<div id="tab-img" style="display:none">
+<input type="file" id="imgUpload" accept="image/*">
+<div id="imageTools">
+<input type="text" id="textOnImg" placeholder="ছবির উপর কি লিখবে? যেমন: Amar Narsingdi">
+<div class="range-label"><span>Brightness</span><span id="bVal">100%</span></div>
+<input type="range" id="brightness" min="0" max="200" value="100" oninput="applyFilter()">
+<div class="range-label"><span>Contrast</span><span id="cVal">100%</span></div>
+<input type="range" id="contrast" min="0" max="200" value="100" oninput="applyFilter()">
+<button onclick="setFilter('grayscale')">⚫️ সাদা-কালো</button>
+<button onclick="setFilter('none')" style="background:#6b7280">🔄 Original</button>
+<button onclick="downloadImg()" style="background:#10b981">⬇️ ছবি ডাউনলোড করো</button>
+</div>
+<canvas id="canvas"></canvas>
+<div id="imgOut" class="result">একটা ছবি আপলোড করো ভাই!</div>
+</div>
+
+</div>
+
 <script>
-function generate(){
-let t=document.getElementById('topic').value;
-if(!t){alert('ভাই টপিক লেখো!');return;}
-let out=`🔥 ভাইরাল টাইটেল for "${t}":\n\n1. নরসিংদীতে ${t} নিয়ে অবাক করা সত্য! | Must Watch\n2. ${t} - নরসিংদীর গোপন রহস্য ফাঁস!\n3. আমার নরসিংদীতে ${t} | Full Vlog 2026\n\n📝 স্ক্রিপ্ট:\nআসসালামু আলাইকুম ভাইয়েরা, আজকে চলে আসলাম নরসিংদীতে ${t} দেখাতে।\n\n💬 কমেন্ট রিপ্লাই:\nভাই অনেক সুন্দর ভিডিও, নরসিংদী আমাদের গর্ব ❤️`;
-document.getElementById('output').innerText=out;
-document.getElementById('copyBtn').style.display='inline-block';
+// TAB SWITCH
+function showTab(name){
+ document.getElementById('tab-vlog').style.display=name=='vlog'?'block':'none';
+ document.getElementById('tab-loc').style.display=name=='loc'?'block':'none';
+ document.getElementById('tab-img').style.display=name=='img'?'block':'none';
+ document.querySelectorAll('.tab button').forEach(b=>b.classList.remove('active'));
+ document.getElementById(name=='vlog'?'t1':name=='loc'?'t2':'t3').classList.add('active');
 }
-function copyText(){
-let text=document.getElementById('output').innerText;
-navigator.clipboard.writeText(text).then(()=>{
-let btn=document.getElementById('copyBtn');
-btn.innerText='✅ কপি হয়েছে!';
-setTimeout(()=>btn.innerText='📋 কপি করো',2000);
+
+// 1. VLOG GENERATOR (Meta Llama 3 Prompt)
+function genVlog(){
+ const input=document.getElementById('vlogInput').value||"Narsingdi";
+ document.getElementById('vlogOut').innerText=`🔥 "${input}" এর জন্য ৫ টা ভাইরাল টাইটেল:\n\n1. ${input} এ গিয়ে অবাক হলাম! নরসিংদীতে এটা কি?!\n2. মাত্র 300 টাকায় ${input} - পুরা নরসিংদী ঘুরলাম!\n3. কেউ বলে না এই গোপন জায়গা! ${input} এর আসল সত্য!\n4. নরসিংদীর ${input} - জীবনে একবার হলেও আসুন!\n5. ${input} Vlog - না দেখলে পস্তাবেন!\n\n📜 Script: Assalamualaikum, আজ আমরা আছি নরসিংদীর ${input} এ...`;
+}
+
+// 2. LOCATION FINDER
+const locDB={
+"ড্রিম হলিডে পার্ক":"পাঁচদোনা, নরসিংদী। টিকেট ৩০০ টাকা। Map: https://maps.google.com/?q=Dream+Holiday+Park+Narsingdi",
+"ওয়ারী বটেশ্বর":"বেলাবো, নরসিংদী। ৩০০০ বছরের পুরনো সভ্যতা। Map: https://maps.google.com/?q=Wari+Bateshwar",
+"রেল স্টেশন":"ব্রাহ্মন্দী, নরসিংদী। ঢাকা থেকে ৫০ কি.মি.। Map: https://maps.google.com/?q=Narsingdi+Railway+Station",
+"বালাপুর জমিদার বাড়ি":"নরসিংদী সদর। Map: https://maps.google.com/?q=Balapur+Zamindar+Bari",
+"পাঁচদোনা":"নরসিংদী সদর, ব্যবসার প্রাণকেন্দ্র"
+};
+function genLoc(){
+ const q=document.getElementById('locInput').value;
+ let out="📍 রেজাল্ট:\n\n";
+ let found=false;
+ for(let k in locDB){ if(q.includes(k)||k.includes(q)){ out+=`✅ ${k}: ${locDB[k]}\n\n`; found=true; } }
+ if(!found) out+=`"${q}" এর জন্য সবচেয়ে কাছের: ${locDB["ড্রিম হলিডে পার্ক"]}\n\nGoogle এ খুঁজো: https://maps.google.com/?q=${encodeURIComponent(q+" Narsingdi")}`;
+ document.getElementById('locOut').innerText=out;
+}
+
+// 3. IMAGE EDITOR
+let img=new Image();
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+let currentFilter='none';
+
+document.getElementById('imgUpload').addEventListener('change',e=>{
+ const file=e.target.files[0];
+ if(!file) return;
+ img.src=URL.createObjectURL(file);
+ img.onload=()=>{
+   canvas.width=img.width>600?600:img.width;
+   canvas.height=img.height*(canvas.width/img.width);
+   document.getElementById('imageTools').style.display='block';
+   applyFilter();
+   document.getElementById('imgOut').innerText="✅ ছবি লোড হয়েছে! এখন ফিল্টার দাও, লেখা যোগ করো!";
+ }
 });
+
+function applyFilter(){
+ const b=document.getElementById('brightness').value;
+ const c=document.getElementById('contrast').value;
+ document.getElementById('bVal').innerText=b+"%";
+ document.getElementById('cVal').innerText=c+"%";
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ let filter=`brightness(${b}%) contrast(${c}%)`;
+ if(currentFilter=='grayscale') filter+=' grayscale(100%)';
+ ctx.filter=filter;
+ ctx.drawImage(img,0,0,canvas.width,canvas.height);
+ // Text overlay
+ const txt=document.getElementById('textOnImg').value;
+ if(txt){
+   ctx.filter='none';
+   ctx.font='bold 30px sans-serif';
+   ctx.fillStyle='white';
+   ctx.strokeStyle='black';
+   ctx.lineWidth=4;
+   ctx.strokeText(txt,20,canvas.height-20);
+   ctx.fillText(txt,20,canvas.height-20);
+ }
+}
+
+function setFilter(f){ currentFilter=f; applyFilter(); }
+
+document.getElementById('textOnImg').addEventListener('input',applyFilter);
+
+function downloadImg(){
+ const link=document.createElement('a');
+ link.download='amar-narsingdi-edited.jpg';
+ link.href=canvas.toDataURL('image/jpeg');
+ link.click();
 }
 </script>
 </body>
