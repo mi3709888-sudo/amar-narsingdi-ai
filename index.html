@@ -114,12 +114,11 @@ async function askGroq(q){
 
 function findLocation(){
   const raw=document.getElementById('locInput').value.trim();
-  if(!raw) return alert("জায়গার নাম লেখো!");
-let foundKey = null;
-  for(let k in locDB){ if(raw.toLowerCase().includes(k.toLowerCase()) || k.toLowerCase().includes(raw.toLowerCase())){ foundKey=k; break; } }
-  const out = document.getElementById('locOut');
+  if(!raw) return alert("জায়গার নাম লেখো ভাই!");
+  let foundKey=null;
+  for(let k in locDB){ if(raw.toLowerCase().includes(k.toLowerCase().slice(0,4))){ foundKey=k; break; } }
+  const out=document.getElementById('locOutBox');
   out.classList.remove('hidden');
-  if(foundKey){
     const d = locDB[foundKey];
     const isMoneyQ = /টাকা|টিকেট|খরচ|ভাড়া|taka|ticket|price/i.test(raw);
     out.innerHTML = `
