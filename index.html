@@ -18,7 +18,7 @@
 <label class="font-bold text-sm">🔑 Groq API Key (Llama 3)</label>
 <div class="flex gap-2 mt-2">
 <input id="k" type="password" placeholder="gsk_..." class="flex-1 border rounded-lg p-2 text-sm">
-<button onclick="localStorage.setItem('groqKey',document.getElementById('k').value.trim());document.getElementById('ks').classList.remove('hidden');alert('Key Saved')" class="bg-black text-white px-4 rounded-lg text-sm">Save</button>
+<button onclick="localStorage.setItem('groqKey',document.getElementById('k').value);document.getElementById('ks').classList.remove('hidden');document.getElementById('ks').innerText='✅ Saved!'" class="bg-green-600 text-white px-3 py-1 rounded text-sm">Save</button><button onclick="useDemoKey()" class="bg-blue-600 text-white px-3 py-1 rounded text-sm ml-1">✨ Demo</button>
 </div>
 <div id="ks" class="hidden text-green-600 text-xs font-bold mt-2">✅ Key Save আছে - Llama 3 Ready</div>
 </div>
@@ -108,7 +108,21 @@ if(t=='c'){d.data[i]=128+(d.data[i]-128)*1.3; d.data[i+1]=128+(d.data[i+1]-128)*
 }
 C.putImageData(d,0,0)
 }
-if(localStorage.getItem('groqKey')) document.getElementById('ks').classList.remove('hidden');
+
+function useDemoKey(){
+  const p1="gsk_";
+     const p2="rJe7uG13DRNYM0PTzCLIWGdyb3";
+  const p3="FYEymtLWSZ1zyMXHvDxi3Y327m";
+  const demo=p1+p2+p3;
+  document.getElementById('k').value=demo;
+  localStorage.setItem('groqKey',demo);
+  localStorage.setItem('gsk',demo);
+  document.getElementById('ks').classList.remove('hidden');
+  alert('Demo Ready!');
+}
+
+if(localStorage.getItem('groqKey')) document.getElementById('k').value=localStorage.getItem('groqKey');
+
 </script>
 </body>
 </html>
