@@ -1,78 +1,27 @@
 <!DOCTYPE html>
-<html lang="bn">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amar Narsingdi AI</title>
-<script src="https://cdn.tailwindcss.com"></script>
-</head>
+<html lang="bn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amar Narsingdi AI - SOB All-in-One</title><script src="https://cdn.tailwindcss.com"></script></head>
 <body class="bg-[#FFFEF7] min-h-screen">
-<header class="bg-green-600 text-white p-4 text-center">
-<h1 class="text-2xl font-bold">🌾 Amar Narsingdi AI</h1>
-<p class="text-sm opacity-90">SOB All-in-One for Narsingdi Vloggers | Built with Meta Llama 3</p>
-</header>
-
+<header class="bg-green-600 text-white p-4 text-center"><h1 class="text-2xl font-bold">🌾 Amar Narsingdi AI</h1><p class="text-xs">SOB All-in-One Toolkit | Built with Meta Llama 3 70B | From Meherpara, Narsingdi</p></header>
 <div class="max-w-md mx-auto p-4">
-<!-- KEY BOX -->
-<div class="border-2 border-dashed border-green-200 rounded-xl p-3 mb-4 bg-white">
-<label class="font-bold">🔑 Groq API Key (গোপন)</label>
-<div class="flex gap-2 mt-2"><input id="keyIn" type="password" placeholder="gsk_..." class="flex-1 border rounded-lg p-2">
-<button onclick="saveKey()" class="bg-black text-white px-4 rounded-lg font-bold">Save</button></div>
-<div id="keyStatus" class="text-sm mt-2 text-green-600 font-bold hidden">✅ Key Save আছে</div>
-</div>
+<div class="border-2 border-dashed border-green-300 rounded-xl p-3 mb-4 bg-white"><label class="font-bold text-sm">🔑 Groq API Key (Llama 3)</label><div class="flex gap-2 mt-2"><input id="keyIn" type="password" placeholder="gsk_..." class="flex-1 border rounded-lg p-2 text-sm"><button onclick="saveKey()" class="bg-black text-white px-4 rounded-lg text-sm">Save</button></div><div id="keyStatus" class="hidden text-xs mt-2 text-green-600 font-bold">✅ Key Save আছে - Llama 3 Ready</div></div>
 
-<!-- TABS -->
-<div class="bg-gray-200 rounded-full p-1 flex mb-4">
-<button onclick="show('t')" id="btn-t" class="flex-1 bg-white rounded-full py-2 font-bold">📝 Title</button>
-<button onclick="show('l')" id="btn-l" class="flex-1 py-2">📍 Location</button>
-<button onclick="show('th')" id="btn-th" class="flex-1 py-2">🖼️ Thumbnail</button>
-</div>
+<div class="bg-gray-200 rounded-full p-1 flex mb-4 text-sm"><button id="btn-t" onclick="show('t')" class="flex-1 bg-white rounded-full py-2 font-bold">📝 Title</button><button id="btn-l" onclick="show('l')" class="flex-1 py-2">📍 Location</button><button id="btn-th" onclick="show('th')" class="flex-1 py-2">🖼️ Editor</button></div>
 
-<!-- TITLE TAB -->
-<div id="tab-t">
-<h2 class="font-bold mb-2">Title Generator - 5 Viral Titles</h2>
-<input id="titleIn" value="Cotton Bazar" class="w-full border-2 border-green-100 rounded-xl p-3 mb-3" placeholder="যেমন: Dream Holiday Park">
-<button onclick="genTitle()" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl">Llama 3 দিয়ে ৫টা টাইটেল বানাও 🚀</button>
-<div id="titleOut" class="hidden mt-3 bg-gray-50 p-3 rounded-xl text-sm whitespace-pre-wrap"></div>
-</div>
+<div id="tab-t"><h2 class="font-bold">1. Title: 5 Viral Bangla Titles + Script</h2><p class="text-xs text-gray-500 mb-2">Topic: Cotton Bazar, Dream Holiday Park etc</p><input id="titleIn" value="Cotton Bazar" class="w-full border-2 border-green-100 rounded-xl p-3 mb-3"><button onclick="genTitle()" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl">Llama 3 দিয়ে বানাও 🚀</button><div id="titleOut" class="hidden mt-3 bg-gray-50 p-3 rounded-xl text-sm whitespace-pre-wrap"></div></div>
 
-<!-- LOCATION TAB -->
-<div id="tab-l" class="hidden">
-<h2 class="font-bold mb-2">Location Finder</h2>
-<input id="locIn" class="w-full border-2 border-green-100 rounded-xl p-3 mb-3" placeholder="যেমন: Kolar Haat">
-<button onclick="genLoc()" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl">Location বানাও 📍</button>
-<div id="locOut" class="hidden mt-3 bg-gray-50 p-3 rounded-xl text-sm"></div>
-</div>
+<div id="tab-l" class="hidden"><h2 class="font-bold">2. Location: Narsingdi Places with Maps</h2><p class="text-xs text-gray-500 mb-2">Dream Holiday Park, Wari Bateshwar, Railway Station</p><input id="locIn" value="Cotton Bazar" class="w-full border-2 border-green-100 rounded-xl p-3 mb-3"><button onclick="genLoc()" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl">Location বানাও 📍</button><div id="locOut" class="hidden mt-3 bg-gray-50 p-3 rounded-xl text-sm"></div></div>
 
-<!-- THUMBNAIL TAB -->
-<div id="tab-th" class="hidden">
-<h2 class="font-bold mb-2">Thumbnail Idea</h2>
-<input id="thIn" class="w-full border-2 border-green-100 rounded-xl p-3 mb-3" placeholder="যেমন: Cotton Bazar Vlog">
-<button onclick="genTh()" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl">Thumbnail আইডিয়া বানাও 🖼️</button>
-<div id="thOut" class="hidden mt-3 bg-gray-50 p-3 rounded-xl text-sm"></div>
+<div id="tab-th" class="hidden"><h2 class="font-bold">3. Image Editor: Thumbnail Maker</h2><p class="text-xs text-gray-500 mb-2">Brightness, Contrast, B&W, Download</p><input type="file" id="imgUp" accept="image/*" class="mb-3 text-sm"><canvas id="cvs" class="w-full rounded-xl border hidden"></canvas><div class="grid grid-cols-3 gap-2 mt-3"><button onclick="filt('b+')" class="border py-2 rounded">Bright+</button><button onclick="filt('c+')" class="border py-2 rounded">Contrast+</button><button onclick="filt('bw')" class="border py-2 rounded">B&W</button></div><button onclick="dl()" class="w-full bg-black text-white mt-3 py-2 rounded-xl text-sm">Download Thumbnail ⬇️</button><div id="thOut" class="hidden mt-3 bg-gray-50 p-3 rounded-xl text-sm"></div><button onclick="genTh()" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl mt-3">Llama 3 Thumbnail Idea 💡</button></div>
+<p class="text-center text-[10px] text-gray-400 mt-8">Built for Your World - Empowering local creators from small town Narsingdi using Meta AI</p>
 </div>
-
-<p class="text-center text-xs text-gray-400 mt-8">From Meherpara to World | Meta Llama 3 70B</p>
-</div>
-
 <script>
-function saveKey(){const k=document.getElementById('keyIn').value.trim();if(!k){alert('Key দাও ভাই');return;}localStorage.setItem('groqKey',k);document.getElementById('keyStatus').classList.remove('hidden');document.getElementById('keyIn').value='';alert('✅ Save হইছে!');}
-window.onload=()=>{if(localStorage.getItem('groqKey')){document.getElementById('keyStatus').classList.remove('hidden');}}
+let ctx,cvs;function saveKey(){const k=document.getElementById('keyIn').value.trim();if(!k){alert('Key দাও');return;}localStorage.setItem('groqKey',k);document.getElementById('keyStatus').classList.remove('hidden');}
+window.onload=()=>{if(localStorage.getItem('groqKey'))document.getElementById('keyStatus').classList.remove('hidden');cvs=document.getElementById('cvs');ctx=cvs.getContext('2d');document.getElementById('imgUp').onchange=e=>{const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{cvs.width=img.width;cvs.height=img.height;ctx.drawImage(img,0,0);cvs.classList.remove('hidden');};img.src=r.result;};r.readAsDataURL(e.target.files[0]);};}
 function show(t){['t','l','th'].forEach(x=>{document.getElementById('tab-'+x).classList.add('hidden');document.getElementById('btn-'+x).classList.remove('bg-white','rounded-full','font-bold');});document.getElementById('tab-'+t).classList.remove('hidden');document.getElementById('btn-'+t).classList.add('bg-white','rounded-full','font-bold');}
-
-async function callGroq(prompt, outId){
-const key=localStorage.getItem('groqKey');if(!key){alert('আগে Key Save করো ভাই!');return;}
-const out=document.getElementById(outId);out.classList.remove('hidden');out.innerHTML='⏳ Llama 3 লিখছে... দাঁড়াও...';
-try{
-const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model:'llama3-8b-8192',messages:[{role:'user',content:prompt}],temperature:0.8})});
-const data=await res.json();console.log(data);
-if(data.error){out.innerHTML='❌ Groq এরর: '+data.error.message;return;}
-const text=data.choices[0].message.content;
-out.innerHTML=text.replace(/\n/g,'<br>')+`<br><br><button onclick="navigator.clipboard.writeText(\`${text.replace(/`/g,'')}\`);alert('কপি হইছে')" class="bg-black text-white text-xs px-3 py-2 rounded">📋 কপি</button>`;
-}catch(e){out.innerHTML='❌ নেটওয়ার্ক এরর: '+e.message+'<br>Key ঠিক আছে কিনা দেখো';}
-}
-function genTitle(){const q=document.getElementById('titleIn').value||'Cotton Bazar';callGroq(`তুমি নরসিংদীর সেরা ইউটিউবার। টপিক: ${q} - এটা নিয়ে ৫টা ভাইরাল বাংলা YouTube টাইটেল বানাও। ইমোজি দাও।`, 'titleOut');}
-function genLoc(){const q=document.getElementById('locIn').value||'Cotton Bazar';callGroq(`Narsingdi তে ${q} এর আশেপাশে ভ্লগ করার মতো ৫টা জায়গার নাম ও ঠিকানা দাও বাংলায়।`, 'locOut');}
-function genTh(){const q=document.getElementById('thIn').value||'Cotton Bazar';callGroq(`YouTube Thumbnail এর জন্য ${q} টপিকে ৩টা আইডিয়া দাও - কি লেখা থাকবে, কি রঙ, কি ছবি। বাংলায়।`, 'thOut');}
-</script>
-</body>
-</html>
+async function callGroq(p,o){const k=localStorage.getItem('groqKey');if(!k){alert('আগে Key Save করো');return;}const out=document.getElementById(o);out.classList.remove('hidden');out.innerHTML='⏳ Meta Llama 3 লিখছে...';try{const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+k},body:JSON.stringify({model:'llama-3.1-8b-instant',messages:[{role:'user',content:p}],temperature:0.7})});const d=await res.json();if(d.error){out.innerHTML='❌ '+d.error.message;return;}out.innerHTML=d.choices[0].message.content.replace(/\n/g,'<br>');}catch(e){out.innerHTML='❌ '+e.message;}}
+function genTitle(){callGroq(`তুমি নরসিংদীর ইউটিউবার। টপিক: ${document.getElementById('titleIn').value} - ৫টা ভাইরাল বাংলা YouTube টাইটেল + ১টা ছোট স্ক্রিপ্ট বানাও ইমোজি সহ`, 'titleOut');}
+function genLoc(){callGroq(`Narsingdi তে ${document.getElementById('locIn').value} এর আশেপাশে ভ্লগ করার ৫টা জায়গা: Dream Holiday Park, Wari Bateshwar, Railway Station, Balapur etc। প্রতিটার সাথে Google Maps link idea দাও বাংলায়`, 'locOut');}
+function genTh(){const q=document.getElementById('thIn')?.value||'Cotton Bazar';callGroq(`Thumbnail Idea for ${q} - ৩টা আইডিয়া দাও কি লেখা, কি রঙ`, 'thOut');}
+function filt(t){let d=ctx.getImageData(0,0,cvs.width,cvs.height);if(t=='bw'){for(let i=0;i<d.data.length;i+=4){let v=0.3*d.data[i]+0.59*d.data[i+1]+0.11*d.data[i+2];d.data[i]=d.data[i+1]=d.data[i+2]=v;}}if(t=='b+'){for(let i=0;i<d.data.length;i+=4){d.data[i]+=20;d.data[i+1]+=20;d.data[i+2]+=20;}}if(t=='c+'){for(let i=0;i<d.data.length;i+=4){d.data[i]=128+(d.data[i]-128)*1.2;d.data[i+1]=128+(d.data[i+1]-128)*1.2;d.data[i+2]=128+(d.data[i+2]-128)*1.2;}}ctx.putImageData(d,0,0);}function dl(){const a=document.createElement('a');a.download='narsingdi-thumb.png';a.href=cvs.toDataURL();a.click();}
+</script></body></html>
