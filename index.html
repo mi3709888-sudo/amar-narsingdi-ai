@@ -1,105 +1,78 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amar Narsingdi AI - From Meherpara to World</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amar Narsingdi AI</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
-<style>body{font-family:'Hind Siliguri',sans-serif}</style>
 </head>
-<body class="bg-[#FFFBF5]">
+<body class="bg-[#FFFEF7] min-h-screen">
 <header class="bg-green-600 text-white p-4 text-center">
 <h1 class="text-2xl font-bold">🌾 Amar Narsingdi AI</h1>
-<p class="text-xs opacity-90">SOB All-in-One for Narsingdi Vloggers | Built with Meta Llama 3</p>
+<p class="text-sm opacity-90">SOB All-in-One for Narsingdi Vloggers | Built with Meta Llama 3</p>
 </header>
 
-<div class="max-w-md mx-auto p-3">
-<!-- KEY -->
-<div class="bg-white rounded-xl shadow p-3 mb-3 border-2 border-dashed border-green-200">
-<p class="font-bold text-sm">🔑 Groq API Key (গোপন)</p>
-<div class="flex gap-2 mt-2">
-<input id="apiKey" type="password" placeholder="gsk_..." class="flex-1 border rounded-lg px-3 py-2 text-sm">
-<button onclick="saveKey()" class="bg-black text-white px-4 rounded-lg text-sm font-bold">Save</button>
-</div>
-<p id="keyStatus" class="text-xs mt-1 text-green-600 hidden">✅ Key Save আছে</p>
+<div class="max-w-md mx-auto p-4">
+<!-- KEY BOX -->
+<div class="border-2 border-dashed border-green-200 rounded-xl p-3 mb-4 bg-white">
+<label class="font-bold">🔑 Groq API Key (গোপন)</label>
+<div class="flex gap-2 mt-2"><input id="keyIn" type="password" placeholder="gsk_..." class="flex-1 border rounded-lg p-2">
+<button onclick="saveKey()" class="bg-black text-white px-4 rounded-lg font-bold">Save</button></div>
+<div id="keyStatus" class="text-sm mt-2 text-green-600 font-bold hidden">✅ Key Save আছে</div>
 </div>
 
 <!-- TABS -->
-<div class="flex bg-gray-200 rounded-xl p-1 mb-3">
-<button onclick="tab('title')" id="t-title" class="flex-1 py-2 rounded-lg bg-white font-bold text-sm">📝 Title</button>
-<button onclick="tab('loc')" id="t-loc" class="flex-1 py-2 rounded-lg text-sm">📍 Location</button>
-<button onclick="tab('img')" id="t-img" class="flex-1 py-2 rounded-lg text-sm">🖼️ Thumbnail</button>
+<div class="bg-gray-200 rounded-full p-1 flex mb-4">
+<button onclick="show('t')" id="btn-t" class="flex-1 bg-white rounded-full py-2 font-bold">📝 Title</button>
+<button onclick="show('l')" id="btn-l" class="flex-1 py-2">📍 Location</button>
+<button onclick="show('th')" id="btn-th" class="flex-1 py-2">🖼️ Thumbnail</button>
 </div>
 
 <!-- TITLE TAB -->
-<div id="c-title">
-<div class="bg-white rounded-xl shadow p-4">
-<p class="font-bold">Title Generator - 5 Viral Titles</p>
-<input id="titleIn" placeholder="যেমন: Cotton Bazar" class="w-full border-2 border-green-100 rounded-xl px-4 py-3 mt-3 text-sm">
-<button onclick="genTitle()" class="w-full bg-green-600 text-white py-3 rounded-xl mt-3 font-bold">Llama 3 দিয়ে ৫টা টাইটেল বানাও 🚀</button>
-<div id="titleOut" class="hidden mt-3 bg-gray-50 rounded-xl p-3 text-sm"></div>
-</div>
+<div id="tab-t">
+<h2 class="font-bold mb-2">Title Generator - 5 Viral Titles</h2>
+<input id="titleIn" value="Cotton Bazar" class="w-full border-2 border-green-100 rounded-xl p-3 mb-3" placeholder="যেমন: Dream Holiday Park">
+<button onclick="genTitle()" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl">Llama 3 দিয়ে ৫টা টাইটেল বানাও 🚀</button>
+<div id="titleOut" class="hidden mt-3 bg-gray-50 p-3 rounded-xl text-sm whitespace-pre-wrap"></div>
 </div>
 
 <!-- LOCATION TAB -->
-<div id="c-loc" class="hidden">
-<div class="bg-white rounded-xl shadow p-4">
-<p class="font-bold">Location Finder</p>
-<input id="locIn" placeholder="যেমন: Dream Holiday Park" class="w-full border-2 border-blue-100 rounded-xl px-4 py-3 mt-3 text-sm">
-<button onclick="findLoc()" class="w-full bg-blue-600 text-white py-3 rounded-xl mt-3 font-bold">ম্যাপ সহ খুঁজুন</button>
-<div id="locOut" class="hidden mt-3"></div>
-</div>
+<div id="tab-l" class="hidden">
+<h2 class="font-bold mb-2">Location Finder</h2>
+<input id="locIn" class="w-full border-2 border-green-100 rounded-xl p-3 mb-3" placeholder="যেমন: Kolar Haat">
+<button onclick="genLoc()" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl">Location বানাও 📍</button>
+<div id="locOut" class="hidden mt-3 bg-gray-50 p-3 rounded-xl text-sm"></div>
 </div>
 
-<!-- IMAGE TAB -->
-<div id="c-img" class="hidden">
-<div class="bg-white rounded-xl shadow p-4">
-<p class="font-bold">Image Thumbnail Editor</p>
-<input type="file" id="imgUp" accept="image/*" class="w-full mt-3 text-sm">
-<div class="grid grid-cols-3 gap-2 mt-3">
-<button onclick="filterImg('brightness(1.5)')" class="border py-2 rounded-lg text-xs">Brightness+</button>
-<button onclick="filterImg('contrast(1.5)')" class="border py-2 rounded-lg text-xs">Contrast+</button>
-<button onclick="filterImg('grayscale(1)')" class="border py-2 rounded-lg text-xs">B&W</button>
-</div>
-<canvas id="canvas" class="w-full mt-3 rounded-xl border hidden"></canvas>
-<button onclick="downloadImg()" class="w-full bg-black text-white py-3 rounded-xl mt-3 font-bold hidden" id="dlBtn">Download Thumbnail</button>
-</div>
+<!-- THUMBNAIL TAB -->
+<div id="tab-th" class="hidden">
+<h2 class="font-bold mb-2">Thumbnail Idea</h2>
+<input id="thIn" class="w-full border-2 border-green-100 rounded-xl p-3 mb-3" placeholder="যেমন: Cotton Bazar Vlog">
+<button onclick="genTh()" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl">Thumbnail আইডিয়া বানাও 🖼️</button>
+<div id="thOut" class="hidden mt-3 bg-gray-50 p-3 rounded-xl text-sm"></div>
 </div>
 
-<p class="text-center text-xs text-gray-400 mt-4">From Meherpara to World | Meta Llama 3 70B</p>
+<p class="text-center text-xs text-gray-400 mt-8">From Meherpara to World | Meta Llama 3 70B</p>
 </div>
 
 <script>
-const DB={
-"Dream Holiday Park":{info:"ড্রিম হলিডে পার্ক, পাঁচদোনা, নরসিংদী। নরসিংদীর সবচেয়ে বড় পার্ক। টিকেট ৩০০ টাকা।",map:"https://maps.google.com/?q=Dream+Holiday+Park+Narsingdi"},
-"Wari Bateshwar":{info:"উয়ারী বটেশ্বর - ২৫০০ বছরের পুরনো প্রত্নতাত্ত্বিক স্থান, বেলাবো।",map:"https://maps.google.com/?q=Wari+Bateshwar"},
-"Railway Station":{info:"নরসিংদী রেলওয়ে স্টেশন - ঢাকা-সিলেট রুট।",map:"https://maps.google.com/?q=Narsingdi+Railway+Station"},
-"Balapur":{info:"বালাপুর জমিদার বাড়ি, নরসিংদী সদর।",map:"https://maps.google.com/?q=Balapur+Zamindar+Bari"}
-};
-function saveKey(){const k=document.getElementById('apiKey').value.trim();if(!k.startsWith('gsk_')){alert('সঠিক Key দাও');return;}localStorage.setItem('groqKey',k);document.getElementById('keyStatus').classList.remove('hidden');alert('✅ Save হয়েছে!');}
-window.onload=()=>{if(localStorage.getItem('groqKey'))document.getElementById('keyStatus').classList.remove('hidden');}
-function tab(n){['title','loc','img'].forEach(x=>{document.getElementById('c-'+x).classList.add('hidden');document.getElementById('t-'+x).classList.remove('bg-white','font-bold');});document.getElementById('c-'+n).classList.remove('hidden');document.getElementById('t-'+n).classList.add('bg-white','font-bold');}
+function saveKey(){const k=document.getElementById('keyIn').value.trim();if(!k){alert('Key দাও ভাই');return;}localStorage.setItem('groqKey',k);document.getElementById('keyStatus').classList.remove('hidden');document.getElementById('keyIn').value='';alert('✅ Save হইছে!');}
+window.onload=()=>{if(localStorage.getItem('groqKey')){document.getElementById('keyStatus').classList.remove('hidden');}}
+function show(t){['t','l','th'].forEach(x=>{document.getElementById('tab-'+x).classList.add('hidden');document.getElementById('btn-'+x).classList.remove('bg-white','rounded-full','font-bold');});document.getElementById('tab-'+t).classList.remove('hidden');document.getElementById('btn-'+t).classList.add('bg-white','rounded-full','font-bold');}
 
-async function genTitle(){
-const q=document.getElementById('titleIn').value.trim();const key=localStorage.getItem('groqKey');if(!q||!key){alert('টপিক লেখো আর Key Save করো');return;}
-const out=document.getElementById('titleOut');out.classList.remove('hidden');out.innerHTML='⏳ Llama 3 লিখছে...';
+async function callGroq(prompt, outId){
+const key=localStorage.getItem('groqKey');if(!key){alert('আগে Key Save করো ভাই!');return;}
+const out=document.getElementById(outId);out.classList.remove('hidden');out.innerHTML='⏳ Llama 3 লিখছে... দাঁড়াও...';
 try{
-const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${key}`},body:JSON.stringify({model:'llama-3.1-8b-instant',messages:[{role:'system',content:'তুমি নরসিংদীর ভ্লগারদের জন্য ৫টা ভাইরাল বাংলা YouTube টাইটেল বানাও। প্রতিটা নম্বর দিয়ে।'},{role:'user',content:q}]})});
-const data=await res.json();const ans=data.choices?.[0]?.message?.content||'এরর';out.innerHTML=ans.replace(/\n/g,'<br>')+`<br><br><button onclick="navigator.clipboard.writeText('${ans.replace(/'/g,'')}').then(()=>alert('কপি হয়েছে'))" class="bg-black text-white text-xs px-3 py-2 rounded">📋 কপি</button>`;
-}catch(e){out.innerHTML='❌ '+e.message;}
+const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model:'llama3-8b-8192',messages:[{role:'user',content:prompt}],temperature:0.8})});
+const data=await res.json();console.log(data);
+if(data.error){out.innerHTML='❌ Groq এরর: '+data.error.message;return;}
+const text=data.choices[0].message.content;
+out.innerHTML=text.replace(/\n/g,'<br>')+`<br><br><button onclick="navigator.clipboard.writeText(\`${text.replace(/`/g,'')}\`);alert('কপি হইছে')" class="bg-black text-white text-xs px-3 py-2 rounded">📋 কপি</button>`;
+}catch(e){out.innerHTML='❌ নেটওয়ার্ক এরর: '+e.message+'<br>Key ঠিক আছে কিনা দেখো';}
 }
-
-function findLoc(){
-const raw=document.getElementById('locIn').value.trim();const out=document.getElementById('locOut');out.classList.remove('hidden');
-let f=null;for(let k in DB){if(raw.toLowerCase().includes(k.toLowerCase())||k.toLowerCase().includes(raw.toLowerCase())){f=k;break;}} if(raw.toLowerCase().includes('dream')) f='Dream Holiday Park';
-if(f){const d=DB[f];out.innerHTML=`<div class="bg-blue-50 border p-4 rounded-xl"><b>${f}</b><p class="mt-2 text-sm">${d.info}</p><div class="flex gap-2 mt-3"><a href="${d.map}" target="_blank" class="bg-blue-600 text-white text-xs px-4 py-2 rounded">🗺️ ম্যাপ</a><button onclick="navigator.clipboard.writeText('${d.info}').then(()=>alert('কপি'))" class="bg-white border text-xs px-4 py-2 rounded">📋 কপি</button></div></div>`}else{out.innerHTML=`<div class="bg-yellow-50 p-3 rounded-xl text-sm">পাওয়া যায়নি। Dream Holiday Park লেখো।</div>`}
-}
-
-let imgObj=null;
-document.getElementById('imgUp').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{const img=new Image();img.onload=()=>{const c=document.getElementById('canvas');c.classList.remove('hidden');document.getElementById('dlBtn').classList.remove('hidden');const ctx=c.getContext('2d');c.width=img.width;c.height=img.height;ctx.drawImage(img,0,0);imgObj=img;};img.src=ev.target.result;};reader.readAsDataURL(file);});
-function filterImg(f){const c=document.getElementById('canvas');c.style.filter=f;}
-function downloadImg(){const c=document.getElementById('canvas');const a=document.createElement('a');a.download='narsingdi-thumbnail.png';a.href=c.toDataURL();a.click();}
+function genTitle(){const q=document.getElementById('titleIn').value||'Cotton Bazar';callGroq(`তুমি নরসিংদীর সেরা ইউটিউবার। টপিক: ${q} - এটা নিয়ে ৫টা ভাইরাল বাংলা YouTube টাইটেল বানাও। ইমোজি দাও।`, 'titleOut');}
+function genLoc(){const q=document.getElementById('locIn').value||'Cotton Bazar';callGroq(`Narsingdi তে ${q} এর আশেপাশে ভ্লগ করার মতো ৫টা জায়গার নাম ও ঠিকানা দাও বাংলায়।`, 'locOut');}
+function genTh(){const q=document.getElementById('thIn').value||'Cotton Bazar';callGroq(`YouTube Thumbnail এর জন্য ${q} টপিকে ৩টা আইডিয়া দাও - কি লেখা থাকবে, কি রঙ, কি ছবি। বাংলায়।`, 'thOut');}
 </script>
 </body>
 </html>
