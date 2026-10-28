@@ -12,7 +12,10 @@ This AI tool generates:
 - 5 Viral YouTube Titles
 - Full Vlog Script in Bangla
 - Comment Reply
-
+### 🔑 How to Use (For Judges)
+1. Get FREE Key: https://console.groq.com/keys
+2. Paste it on website top box -> Save
+3. Type "Cotton Bazar" and Generate
 ### Technology
 - Meta Llama 3 70B
 - HTML / JavaScript
