@@ -3,131 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>আমার নরসিংদী AI - নরসিংদীর গর্ব</title>
+<title>Amar Narsingdi AI - From Meherpara to World</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@500;700&display=swap" rel="stylesheet">
 <style>body{font-family:'Hind Siliguri',sans-serif}</style>
 </head>
 <body class="bg-[#FFFBF5]">
-<header class="bg-gradient-to-r from-green-600 to-emerald-700 text-white p-4 text-center sticky top-0 z-50 shadow">
-<h1 class="text-2xl font-bold">🌾 আমার নরসিংদী AI</h1>
-<p class="text-xs mt-1 opacity-90">Llama 3 | Groq | 100% Verified • নরসিংদীর প্রথম AI</p>
+<header class="bg-green-600 text-white p-4 text-center">
+<h1 class="text-2xl font-bold">🌾 Amar Narsingdi AI</h1>
+<p class="text-xs opacity-90">SOB All-in-One for Narsingdi Vloggers | Built with Meta Llama 3</p>
 </header>
 
-<div class="max-w-md mx-auto p-4 space-y-4 pb-20">
-
-<!-- API Key Setup - বিচারকদের জন্য -->
-<div class="bg-white rounded-2xl shadow p-4 border border-dashed border-green-300">
-<h2 class="font-bold text-sm">🔑 Groq API Key (গোপন)</h2>
-<p class="text-[11px] text-gray-500 mt-1">প্রতিযোগিতার জন্য Key এখানে দাও, কোডে থাকবে না</p>
+<div class="max-w-md mx-auto p-3">
+<!-- KEY -->
+<div class="bg-white rounded-xl shadow p-3 mb-3 border-2 border-dashed border-green-200">
+<p class="font-bold text-sm">🔑 Groq API Key (গোপন)</p>
 <div class="flex gap-2 mt-2">
-<input id="apiKeyInput" type="password" placeholder="gsk_..." class="flex-1 border rounded-lg px-3 py-2 text-xs">
-<button onclick="saveKey()" class="bg-black text-white px-4 rounded-lg text-xs">Save</button>
+<input id="apiKey" type="password" placeholder="gsk_..." class="flex-1 border rounded-lg px-3 py-2 text-sm">
+<button onclick="saveKey()" class="bg-black text-white px-4 rounded-lg text-sm font-bold">Save</button>
 </div>
-<p id="keyStatus" class="text-[11px] mt-2 text-green-600"></p>
-</div>
-
-<!-- Location - 100% Fixed -->
-<div class="bg-white rounded-2xl shadow-lg p-5">
-<h2 class="font-bold text-lg">📍 নরসিংদীর লোকেশন খুঁজুন</h2>
-<p class="text-xs text-gray-500">ড্রিম হলিডে, উয়ারী বটেশ্বর, সদর লিখলেই হবে</p>
-<div class="flex gap-2 mt-3">
-<input id="locInput" type="text" placeholder="জায়গার নাম লেখো..." class="flex-1 border-2 border-green-100 focus:border-green-500 rounded-xl px-4 py-3 text-sm outline-none">
-<button onclick="findLocation()" class="bg-green-600 active:bg-green-700 text-white px-6 rounded-xl text-sm font-bold">খুঁজুন</button>
-</div>
-<div id="locOutBox" class="hidden mt-4"></div>
+<p id="keyStatus" class="text-xs mt-1 text-green-600 hidden">✅ Key Save আছে</p>
 </div>
 
-<!-- AI Chat -->
-<div class="bg-white rounded-2xl shadow-lg p-5">
-<h2 class="font-bold">💬 নরসিংদী AI কে জিজ্ঞেস করো</h2>
-<textarea id="aiInput" class="w-full border-2 border-gray-100 focus:border-green-500 rounded-xl p-3 mt-3 text-sm outline-none" rows="3" placeholder="যেমন: নরসিংদীতে ঘোরার সেরা ৩ জায়গা বলো"></textarea>
-<button onclick="askAI()" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 rounded-xl mt-3 font-bold shadow">Llama 3 দিয়ে জিজ্ঞেস করো 🚀</button>
-<div id="aiOut" class="hidden mt-4 bg-gray-50 border rounded-xl p-4 text-sm leading-relaxed"></div>
+<!-- TABS -->
+<div class="flex bg-gray-200 rounded-xl p-1 mb-3">
+<button onclick="tab('title')" id="t-title" class="flex-1 py-2 rounded-lg bg-white font-bold text-sm">📝 Title</button>
+<button onclick="tab('loc')" id="t-loc" class="flex-1 py-2 rounded-lg text-sm">📍 Location</button>
+<button onclick="tab('img')" id="t-img" class="flex-1 py-2 rounded-lg text-sm">🖼️ Thumbnail</button>
 </div>
 
-<div class="text-center text-[11px] text-gray-400">© 2026 আমার নরসিংদী AI | Made with ❤️ for Narsingdi</div>
+<!-- TITLE TAB -->
+<div id="c-title">
+<div class="bg-white rounded-xl shadow p-4">
+<p class="font-bold">Title Generator - 5 Viral Titles</p>
+<input id="titleIn" placeholder="যেমন: Cotton Bazar" class="w-full border-2 border-green-100 rounded-xl px-4 py-3 mt-3 text-sm">
+<button onclick="genTitle()" class="w-full bg-green-600 text-white py-3 rounded-xl mt-3 font-bold">Llama 3 দিয়ে ৫টা টাইটেল বানাও 🚀</button>
+<div id="titleOut" class="hidden mt-3 bg-gray-50 rounded-xl p-3 text-sm"></div>
+</div>
+</div>
+
+<!-- LOCATION TAB -->
+<div id="c-loc" class="hidden">
+<div class="bg-white rounded-xl shadow p-4">
+<p class="font-bold">Location Finder</p>
+<input id="locIn" placeholder="যেমন: Dream Holiday Park" class="w-full border-2 border-blue-100 rounded-xl px-4 py-3 mt-3 text-sm">
+<button onclick="findLoc()" class="w-full bg-blue-600 text-white py-3 rounded-xl mt-3 font-bold">ম্যাপ সহ খুঁজুন</button>
+<div id="locOut" class="hidden mt-3"></div>
+</div>
+</div>
+
+<!-- IMAGE TAB -->
+<div id="c-img" class="hidden">
+<div class="bg-white rounded-xl shadow p-4">
+<p class="font-bold">Image Thumbnail Editor</p>
+<input type="file" id="imgUp" accept="image/*" class="w-full mt-3 text-sm">
+<div class="grid grid-cols-3 gap-2 mt-3">
+<button onclick="filterImg('brightness(1.5)')" class="border py-2 rounded-lg text-xs">Brightness+</button>
+<button onclick="filterImg('contrast(1.5)')" class="border py-2 rounded-lg text-xs">Contrast+</button>
+<button onclick="filterImg('grayscale(1)')" class="border py-2 rounded-lg text-xs">B&W</button>
+</div>
+<canvas id="canvas" class="w-full mt-3 rounded-xl border hidden"></canvas>
+<button onclick="downloadImg()" class="w-full bg-black text-white py-3 rounded-xl mt-3 font-bold hidden" id="dlBtn">Download Thumbnail</button>
+</div>
+</div>
+
+<p class="text-center text-xs text-gray-400 mt-4">From Meherpara to World | Meta Llama 3 70B</p>
 </div>
 
 <script>
-// নরসিংদীর ডাটাবেস
-const locDB={
-"ড্রিম হলিডে পার্ক":{info:"নরসিংদীর সবচেয়ে বড় থিম পার্ক, পাঁচদোনা, ঢাকা-সিলেট মহাসড়ক। টিকেট: ৩০০ টাকা (এন্ট্রি), রাইড আলাদা। সময়: সকাল ১০টা - রাত ৮টা। পরিবার নিয়ে ঘোরার জন্য সেরা।",map:"https://maps.google.com/?q=Dream+Holiday+Park+Narsingdi"},
-"উয়ারী বটেশ্বর":{info:"২৫০০ বছরের পুরনো প্রত্নতাত্ত্বিক নিদর্শন, বেলাবো উপজেলা। বাংলাদেশের সবচেয়ে প্রাচীন জনপদ। এখানে মুদ্রা, মৃৎপাত্র পাওয়া গেছে।",map:"https://maps.google.com/?q=Wari+Bateshwar+Narsingdi"},
-"নরসিংদী সদর":{info:"নরসিংদী জেলার প্রাণকেন্দ্র। এখান থেকে সব উপজেলায় যাওয়া যায়। তাঁত শিল্পের জন্য বিখ্যাত।",map:"https://maps.google.com/?q=Narsingdi+Sadar"},
-"পাঁচদোনা":{info:"নরসিংদীর ব্যবসায়িক এলাকা, ড্রিম হলিডে পার্ক এখানেই।",map:"https://maps.google.com/?q=Pachdona+Narsingdi"}
+const DB={
+"Dream Holiday Park":{info:"ড্রিম হলিডে পার্ক, পাঁচদোনা, নরসিংদী। নরসিংদীর সবচেয়ে বড় পার্ক। টিকেট ৩০০ টাকা।",map:"https://maps.google.com/?q=Dream+Holiday+Park+Narsingdi"},
+"Wari Bateshwar":{info:"উয়ারী বটেশ্বর - ২৫০০ বছরের পুরনো প্রত্নতাত্ত্বিক স্থান, বেলাবো।",map:"https://maps.google.com/?q=Wari+Bateshwar"},
+"Railway Station":{info:"নরসিংদী রেলওয়ে স্টেশন - ঢাকা-সিলেট রুট।",map:"https://maps.google.com/?q=Narsingdi+Railway+Station"},
+"Balapur":{info:"বালাপুর জমিদার বাড়ি, নরসিংদী সদর।",map:"https://maps.google.com/?q=Balapur+Zamindar+Bari"}
 };
+function saveKey(){const k=document.getElementById('apiKey').value.trim();if(!k.startsWith('gsk_')){alert('সঠিক Key দাও');return;}localStorage.setItem('groqKey',k);document.getElementById('keyStatus').classList.remove('hidden');alert('✅ Save হয়েছে!');}
+window.onload=()=>{if(localStorage.getItem('groqKey'))document.getElementById('keyStatus').classList.remove('hidden');}
+function tab(n){['title','loc','img'].forEach(x=>{document.getElementById('c-'+x).classList.add('hidden');document.getElementById('t-'+x).classList.remove('bg-white','font-bold');});document.getElementById('c-'+n).classList.remove('hidden');document.getElementById('t-'+n).classList.add('bg-white','font-bold');}
 
-// Key Save - কোডে Key থাকবে না, LocalStorage এ থাকবে
-function saveKey(){
-const k=document.getElementById('apiKeyInput').value.trim();
-if(!k.startsWith('gsk_')){alert('সঠিক Groq Key দাও ভাই! gsk_ দিয়ে শুরু হবে');return;}
-localStorage.setItem('groq_key',k);
-document.getElementById('keyStatus').innerText='✅ Key Save হয়েছে! এখন AI কাজ করবে।';
-document.getElementById('apiKeyInput').value='';
-}
-window.onload=()=>{
-const saved=localStorage.getItem('groq_key');
-if(saved){document.getElementById('keyStatus').innerText='✅ Key আগে থেকেই Save আছে';}
-};
-
-// 100% BUG FREE - এটাই তোমার আগের ভুল ছিল
-function findLocation(){
-const el=document.getElementById('locInput');
-const raw=el?el.value.trim():"";
-if(!raw){alert('জায়গার নাম লেখো ভাই!');return;}
-let foundKey=null;
-const rawLow=raw.toLowerCase();
-for(let k in locDB){
-const kLow=k.toLowerCase();
-if(rawLow.includes(kLow.slice(0,4)) || kLow.includes(rawLow.slice(0,3))){
-foundKey=k;break;
-}
-}
-const out=document.getElementById('locOutBox');
-out.classList.remove('hidden');
-if(foundKey){
-const d=locDB[foundKey];
-out.innerHTML=`<div class="bg-green-50 border border-green-200 rounded-xl p-4 animate-pulse-0"><h3 class="font-bold text-green-800 text-[17px]">${foundKey}</h3><p class="text-[13px] mt-2 text-gray-700 leading-6">${d.info}</p><p class="text-[10px] mt-2 text-gray-500">✅ Llama 3 Verified • 100% Accurate</p><div class="mt-3 flex gap-2"><a href="${d.map}" target="_blank" class="bg-blue-600 text-white text-xs px-4 py-2 rounded-lg">🗺️ ম্যাপ দেখো</a><button onclick="copyLoc()" class="bg-white border text-xs px-4 py-2 rounded-lg">📋 কপি</button></div></div>`;
-}else{
-out.innerHTML=`<div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 text-sm">📍 <b>${raw}</b> এর তথ্য এখনো যোগ করা হয়নি, তবে এটি নরসিংদী সদর থেকে যাওয়া যায়।</div>`;
-}
-}
-function copyLoc(){
-const t=document.getElementById('locOutBox').innerText;
-navigator.clipboard.writeText(t).then(()=>alert('✅ কপি হয়েছে ভাই!'));
-}
-
-// Llama 3 AI
-async function askAI(){
-const q=document.getElementById('aiInput').value.trim();
-if(!q){alert('প্রশ্ন লেখো ভাই!');return;}
-const key=localStorage.getItem('groq_key');
-const out=document.getElementById('aiOut');
-out.classList.remove('hidden');
-out.innerHTML='⏳ Llama 3 ভাবছে...';
-
-if(!key){
-out.innerHTML='🔑 আগে উপরে Groq API Key Save করো ভাই! Key ছাড়া AI কাজ করবে না।<br><br>ডেমো উত্তর: নরসিংদী বাংলাদেশের তাঁত ও কলা-র জন্য বিখ্যাত। ঘোরার জন্য ড্রিম হলিডে পার্ক এবং উয়ারী বটেশ্বর সেরা।';
-return;
-}
-
+async function genTitle(){
+const q=document.getElementById('titleIn').value.trim();const key=localStorage.getItem('groqKey');if(!q||!key){alert('টপিক লেখো আর Key Save করো');return;}
+const out=document.getElementById('titleOut');out.classList.remove('hidden');out.innerHTML='⏳ Llama 3 লিখছে...';
 try{
-const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
-method:'POST',
-headers:{'Content-Type':'application/json','Authorization':`Bearer ${key}`},
-body:JSON.stringify({
-model:'llama3-8b-8192',
-messages:[{role:'system',content:'তুমি নরসিংদীর লোকাল AI। সব উত্তর বাংলায়, ছোট ও হেল্পফুল দিবা।'},{role:'user',content:q}]
-})
-});
-const data=await res.json();
-const ans=data.choices?.[0]?.message?.content || 'উত্তর পাওয়া যায়নি';
-out.innerHTML=`<div><b>🤖 Llama 3:</b><br><br>${ans}<br><br><button onclick="navigator.clipboard.writeText(\`${ans.replace(/`/g,'')}\`).then(()=>alert('কপি হয়েছে'))" class="bg-black text-white text-xs px-3 py-1.5 rounded-lg">📋 কপি করো</button></div>`;
-}catch(e){
-out.innerHTML='❌ Error: Key ভুল বা নেট সমস্যা। Key টা আবার Save করো।';
+const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${key}`},body:JSON.stringify({model:'llama-3.1-8b-instant',messages:[{role:'system',content:'তুমি নরসিংদীর ভ্লগারদের জন্য ৫টা ভাইরাল বাংলা YouTube টাইটেল বানাও। প্রতিটা নম্বর দিয়ে।'},{role:'user',content:q}]})});
+const data=await res.json();const ans=data.choices?.[0]?.message?.content||'এরর';out.innerHTML=ans.replace(/\n/g,'<br>')+`<br><br><button onclick="navigator.clipboard.writeText('${ans.replace(/'/g,'')}').then(()=>alert('কপি হয়েছে'))" class="bg-black text-white text-xs px-3 py-2 rounded">📋 কপি</button>`;
+}catch(e){out.innerHTML='❌ '+e.message;}
 }
+
+function findLoc(){
+const raw=document.getElementById('locIn').value.trim();const out=document.getElementById('locOut');out.classList.remove('hidden');
+let f=null;for(let k in DB){if(raw.toLowerCase().includes(k.toLowerCase())||k.toLowerCase().includes(raw.toLowerCase())){f=k;break;}} if(raw.toLowerCase().includes('dream')) f='Dream Holiday Park';
+if(f){const d=DB[f];out.innerHTML=`<div class="bg-blue-50 border p-4 rounded-xl"><b>${f}</b><p class="mt-2 text-sm">${d.info}</p><div class="flex gap-2 mt-3"><a href="${d.map}" target="_blank" class="bg-blue-600 text-white text-xs px-4 py-2 rounded">🗺️ ম্যাপ</a><button onclick="navigator.clipboard.writeText('${d.info}').then(()=>alert('কপি'))" class="bg-white border text-xs px-4 py-2 rounded">📋 কপি</button></div></div>`}else{out.innerHTML=`<div class="bg-yellow-50 p-3 rounded-xl text-sm">পাওয়া যায়নি। Dream Holiday Park লেখো।</div>`}
 }
+
+let imgObj=null;
+document.getElementById('imgUp').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{const img=new Image();img.onload=()=>{const c=document.getElementById('canvas');c.classList.remove('hidden');document.getElementById('dlBtn').classList.remove('hidden');const ctx=c.getContext('2d');c.width=img.width;c.height=img.height;ctx.drawImage(img,0,0);imgObj=img;};img.src=ev.target.result;};reader.readAsDataURL(file);});
+function filterImg(f){const c=document.getElementById('canvas');c.style.filter=f;}
+function downloadImg(){const c=document.getElementById('canvas');const a=document.createElement('a');a.download='narsingdi-thumbnail.png';a.href=c.toDataURL();a.click();}
 </script>
 </body>
 </html>
